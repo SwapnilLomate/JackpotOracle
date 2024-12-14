@@ -30,7 +30,7 @@ jobs:
 
       - name: Move index.html to root (for GitHub Pages)
         run: |
-          mv ./publish/wwwroot/index.html ./wwwroot/index.html
+          mv ./wwwroot/index.html ./index.html
           
       # Deploy to GitHub Pages using a GitHub Action
       - name: Deploy to GitHub Pages
