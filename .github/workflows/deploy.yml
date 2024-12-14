@@ -30,7 +30,7 @@ jobs:
           
       # Publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
-        run: dotnet publish -c Release
+        run: dotnet publish -c Release -o:public -p:GHPages=true
         
       - name: Rewrite base href
         uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
@@ -40,6 +40,10 @@ jobs:
 
       - name: Disable Jekyll
         run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
+        
+      - name: Copy index.html to 404.html
+        run: |
+          cp ${{ env.PUBLISH_DIR }}/index.html ${{ env.PUBLISH_DIR }}/404.html
         
       - name: GitHub Pages
         if: success()
