@@ -38,6 +38,9 @@ jobs:
             html_path: ${{ env.PUBLISH_DIR }}/index.html
             base_href: /JackpotOracle/
 
+      - name: Disable Jekyll
+        run: touch release/wwwroot/.nojekyll
+        
       - name: GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v4.1.0
