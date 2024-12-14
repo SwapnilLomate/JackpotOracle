@@ -27,14 +27,10 @@ jobs:
       # Build the Blazor app for production
       - name: Build JackpotOracle Blazor App
         run: dotnet publish -c Release -o ./wwwroot
-
-      - name: Move index.html to root (for GitHub Pages)
-        run: |
-          mv ./wwwroot/index.html ./index.html
-          
+        
       # Deploy to GitHub Pages using a GitHub Action
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_dir: ./wwwroot   # Directory to publish (your Blazor WebAssembly build)
+          publish_dir: ./   # Directory to publish (your Blazor WebAssembly build)
           github_token: ${{ secrets.JACKPOTORACLE_APP_TOKEN }}
