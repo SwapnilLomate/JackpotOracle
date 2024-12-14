@@ -28,6 +28,10 @@ jobs:
       - name: Build JackpotOracle Blazor App
         run: dotnet publish -c Release -o ./wwwroot
 
+      - name: Move index.html to root (for GitHub Pages)
+        run: |
+          mv ./publish/wwwroot/index.html ./wwwroot/index.html
+          
       # Deploy to GitHub Pages using a GitHub Action
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
