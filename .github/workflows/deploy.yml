@@ -2,6 +2,7 @@ name: build and test and deploy
 env:
   PUBLISH_DIR: bin/Release/net9.0/publish/wwwroot
   
+# Controls when the action will run
 on:
   push:
     branches:
@@ -11,7 +12,7 @@ on:
       - main
 
 jobs:
-  deploy-to-github-pages:
+  build:
     runs-on: ubuntu-latest
     steps:
       # Checkout the code
@@ -32,16 +33,16 @@ jobs:
         run: dotnet publish -c Release
         
       - name: Rewrite base href
-      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
-      with:
-        html_path: ${{ env.PUBLISH_DIR }}/index.html
-        base_href: /JackpotOracle/
+        uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+        with:
+            html_path: ${{ env.PUBLISH_DIR }}/index.html
+            base_href: /JackpotOracle/
 
-    - name: GitHub Pages
-      if: success()
-      uses: crazy-max/ghaction-github-pages@v1.5.1
-      with:
-        target_branch: gh-pages
-        build_dir: ${{ env.PUBLISH_DIR }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.JACKPOTORACLE_APP_TOKEN }}
+      - name: GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v1.5.1
+        with:
+            target_branch: gh-pages
+            build_dir: ${{ env.PUBLISH_DIR }}
+        env:
+            GITHUB_TOKEN: ${{ secrets.JACKPOTORACLE_APP_TOKEN }}
