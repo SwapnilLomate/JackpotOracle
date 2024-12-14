@@ -38,10 +38,6 @@ jobs:
             html_path: ${{ env.PUBLISH_DIR }}/index.html
             base_href: /JackpotOracle/
         
-      - name: Copy index.html to 404.html
-        run: |
-          cp ${{ env.PUBLISH_DIR }}/index.html ${{ env.PUBLISH_DIR }}/404.html
-          
       - name: Disable Jekyll
         run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
         
