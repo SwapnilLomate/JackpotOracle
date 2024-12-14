@@ -1,36 +1,37 @@
-name: Deploy JackpotOracle Blazor WebAssembly to GitHub Pages
+name: build and test and deploy
 
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to the main branch
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build_and_deploy:
+  deploy-to-github-pages:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout the code from GitHub repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # Checkout the code
+      - uses: actions/checkout@v4
 
-      # Set up .NET (using .NET 9)
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      # Install .NET Core SDK
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0
+          
+      # Install dotnet wasm buildtools workload
+      - name: Install .NET WASM Build Tools
+        run: dotnet workload install wasm-tools
+          
+      # Publishes Blazor project to the release-folder
+      - name: Publish .NET Core Project
+        run: dotnet publish ./JackpotOracle.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
-      # Restore dependencies
-      - name: Restore Dependencies
-        run: dotnet restore
-
-      # Build the Blazor app for production
-      - name: Build JackpotOracle Blazor App
-        run: dotnet publish -c Release -o ./wwwroot
-        
-      # Deploy to GitHub Pages using a GitHub Action
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Commit wwwroot to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          publish_dir: ./   # Directory to publish (your Blazor WebAssembly build)
+          BRANCH: gh-pages
+          FOLDER: dist/Web/wwwroot
           github_token: ${{ secrets.JACKPOTORACLE_APP_TOKEN }}
