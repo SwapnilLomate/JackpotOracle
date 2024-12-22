@@ -1,50 +1,22 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.0.0
-MinimumVisualStudioVersion = 16.0.0.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JackpotOracle", "JackpotOracle\JackpotOracle.csproj", "{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JackpotOracle.Client", "JackpotOracle.Client\JackpotOracle.Client.csproj", "{65532210-8D82-4FAE-964A-48F9B14D5F00}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JackpotOracle", "JackpotOracle.csproj", "{D52C2149-324F-4047-AA37-9B2B42F8FDE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Debug|x64.Build.0 = Debug|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Debug|x86.Build.0 = Debug|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Release|x64.ActiveCfg = Release|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Release|x64.Build.0 = Release|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Release|x86.ActiveCfg = Release|Any CPU
-		{65532210-8D82-4FAE-964A-48F9B14D5F00}.Release|x86.Build.0 = Release|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Debug|x64.Build.0 = Debug|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Debug|x86.Build.0 = Debug|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Release|x64.ActiveCfg = Release|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Release|x64.Build.0 = Release|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Release|x86.ActiveCfg = Release|Any CPU
-		{1FCF30E5-3D16-43CE-9C3F-89716EE1ED9D}.Release|x86.Build.0 = Release|Any CPU
+		{D52C2149-324F-4047-AA37-9B2B42F8FDE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D52C2149-324F-4047-AA37-9B2B42F8FDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D52C2149-324F-4047-AA37-9B2B42F8FDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D52C2149-324F-4047-AA37-9B2B42F8FDE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2C318D7E-F807-4FA6-8F04-486739671381}
 	EndGlobalSection
 EndGlobal
