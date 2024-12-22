@@ -2,6 +2,60 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="pa-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">JackpotOracle Dashboard</MudText>
+    <MudDivider Class="mb-3" />
 
-Welcome to your new app.
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+            <MudTextField Label="Number of Sets" @bind-Value="NumberOfSets" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentText="Sets" FullWidth="true" />
+        </MudItem>
+        <MudItem xs="12" sm="6" class="d-flex align-items-center">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="GenerateCombinations" FullWidth="true">
+                Generate Combinations
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+
+    <MudDivider Class="mt-3 mb-3" />
+
+    <MudTable Items="GeneratedCombinations" Class="mt-3">
+        <HeaderContent>
+            <MudTh Class="mud-text-center mud-primary-bg">Set #</MudTh>
+            <MudTh Class="mud-text-center mud-primary-bg">Numbers</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Key</MudTd>
+            <MudTd>
+                @foreach (var num in context.Value.Take(5))
+                {
+                    <MudAvatar Class="mr-4" Color="Color.Primary" Size="Size.Medium">@num</MudAvatar>
+                }
+                @foreach (var euroNum in context.Value.Skip(5))
+                {
+                    <MudAvatar Class="mr-4" Color="Color.Secondary" Size="Size.Medium">@euroNum</MudAvatar>
+                }
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudContainer>
+
+@code {
+    private int NumberOfSets { get; set; } = 10;
+    private Dictionary<int, List<int>> GeneratedCombinations { get; set; } = new();
+
+    private void GenerateCombinations()
+    {
+        GeneratedCombinations.Clear();
+        var random = new Random();
+
+        for (int i = 1; i <= NumberOfSets; i++)
+        {
+            // Generate 5 main numbers (1-50) and 2 Euro numbers (1-12)
+            var mainNumbers = Enumerable.Range(1, 50).OrderBy(x => random.Next()).Take(5).ToList();
+            var euroNumbers = Enumerable.Range(1, 12).OrderBy(x => random.Next()).Take(2).ToList();
+
+            GeneratedCombinations[i] = mainNumbers.Concat(euroNumbers).ToList();
+        }
+    }
+}

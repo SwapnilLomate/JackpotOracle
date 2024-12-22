@@ -2,6 +2,46 @@
 
 <PageTitle>About</PageTitle>
 
-@code {
-
-}
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudPaper Class="pa-4">
+        <MudText Typo="Typo.h4" GutterBottom="true">About JackpotOracle</MudText>
+        <MudDivider Class="mb-3" />
+        <MudText Typo="Typo.body1" GutterBottom="true">
+            Welcome to <b>JackpotOracle</b>, your ultimate companion for Euro Jackpot number predictions! 
+            This application is built using the powerful <a href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor" target="_blank">Blazor WebAssembly</a> framework, 
+            combined with the sleek and modern UI components of <a href="https://mudblazor.com/" target="_blank">MudBlazor</a>.
+        </MudText>
+        <MudText Typo="Typo.body1" GutterBottom="true">
+            <b>JackpotOracle</b> employs advanced algorithms and logical patterns to analyze past results and 
+            predict numbers that you can use to participate in the Euro Jackpot lottery. 
+            By leveraging data and statistical models, JackpotOracle aims to provide you with better insights and 
+            potentially improve your chances of hitting the jackpot.
+        </MudText>
+        <MudList Class="mb-3" T="string">
+            <MudListItem>
+                <MudText Typo="Typo.body1"><b>Key Features:</b></MudText>
+            </MudListItem>
+            <MudListItem>
+                <MudText Typo="Typo.body2">✔ Data-driven analysis of Euro Jackpot numbers</MudText>
+            </MudListItem>
+            <MudListItem>
+                <MudText Typo="Typo.body2">✔ Easy-to-use and intuitive interface</MudText>
+            </MudListItem>
+            <MudListItem>
+                <MudText Typo="Typo.body2">✔ Logical and statistical prediction patterns</MudText>
+            </MudListItem>
+            <MudListItem>
+                <MudText Typo="Typo.body2">✔ Integration with Blazor WebAssembly and MudBlazor for seamless performance</MudText>
+            </MudListItem>
+        </MudList>
+        <MudText Typo="Typo.body1" GutterBottom="true">
+            Whether you are a seasoned player or a curious enthusiast, JackpotOracle provides you with a powerful platform 
+            to explore and generate numbers for the Euro Jackpot. Remember, while our predictions are rooted in logic and 
+            analysis, the lottery remains a game of chance, so always play responsibly.
+        </MudText>
+        <MudDivider Class="mt-3 mb-3" />
+        <MudText Typo="Typo.body1">
+            <b>Disclaimer:</b> JackpotOracle does not guarantee winning numbers. It is designed as a tool to assist you with your number selection process.
+        </MudText>
+    </MudPaper>
+</MudContainer>
