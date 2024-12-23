@@ -8,7 +8,7 @@
 
     <MudGrid>
         <MudItem xs="12" sm="6">
-            <MudTextField Label="Number of Sets" @bind-Value="NumberOfSets" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentText="Sets" FullWidth="true" />
+            <MudTextField Label="Number of Sets" @bind-Value="NumberOfSets" Variant="Variant.Outlined" InputType="InputType.Number" Min="0" Max="9999" MaxLength="4" Immediate="true" OnBlur="ValidateNumber" Adornment="Adornment.Start" AdornmentText="Sets" FullWidth="true" />
         </MudItem>
         <MudItem xs="12" sm="6" class="d-flex align-items-center">
             <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="GenerateCombinations" FullWidth="true">
@@ -41,7 +41,7 @@
 </MudContainer>
 
 @code {
-    private int NumberOfSets { get; set; } = 10;
+    private int NumberOfSets { get; set; } = 1;
     private Dictionary<int, List<int>> GeneratedCombinations { get; set; } = new();
 
     private void GenerateCombinations()
@@ -57,5 +57,12 @@
 
             GeneratedCombinations[i] = mainNumbers.Concat(euroNumbers).ToList();
         }
+    }
+    private void ValidateNumber()
+    {
+        if (NumberOfSets < 0)
+            NumberOfSets = 0;
+        else if (NumberOfSets > 999)
+            NumberOfSets = 999;
     }
 }
