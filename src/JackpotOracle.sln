@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JackpotOracle", "JackpotOracle.csproj", "{D52C2149-324F-4047-AA37-9B2B42F8FDE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JackpotOracle.Global", "..\JackpotOracle.Global\JackpotOracle.Global.csproj", "{5AFA43D4-A2C1-4FAB-AA7E-3113927883A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D52C2149-324F-4047-AA37-9B2B42F8FDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52C2149-324F-4047-AA37-9B2B42F8FDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D52C2149-324F-4047-AA37-9B2B42F8FDE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AFA43D4-A2C1-4FAB-AA7E-3113927883A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AFA43D4-A2C1-4FAB-AA7E-3113927883A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AFA43D4-A2C1-4FAB-AA7E-3113927883A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AFA43D4-A2C1-4FAB-AA7E-3113927883A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,23 +5,89 @@
 <MudContainer MaxWidth="MaxWidth.Medium" Class="pa-4">
     <MudText Typo="Typo.h4" GutterBottom="true">JackpotOracle Dashboard</MudText>
     <MudDivider Class="mb-3" />
-
     <MudGrid>
         <MudItem xs="12" sm="6">
-            <MudTextField Label="Number of Sets" @bind-Value="NumberOfSets" Variant="Variant.Outlined" InputType="InputType.Number" Min="0" Max="9999" MaxLength="4" Immediate="true" OnBlur="ValidateNumber" Adornment="Adornment.Start" AdornmentText="Sets" FullWidth="true" />
+            <MudSelect Label="Type of Row Generation" @bind-Value="RowGenerationType" Variant="Variant.Outlined" FullWidth="true">
+                <MudSelectItem Value="@RowGenerationType.System">System</MudSelectItem>
+                <MudSelectItem Value="@RowGenerationType.Random">Random</MudSelectItem>
+            </MudSelect>
         </MudItem>
-        <MudItem xs="12" sm="6" class="d-flex align-items-center">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="GenerateCombinations" FullWidth="true">
-                Generate Combinations
-            </MudButton>
+        <MudItem xs="12" sm="6">
+            <MudTextField Label="Number of Rows" @bind-Value="NumberOfSets" Variant="Variant.Outlined" InputType="InputType.Number" Adornment="Adornment.Start" AdornmentText="Rows" FullWidth="true" Min="0" Max="999" Immediate="true" OnBlur="ValidateNumber" />
         </MudItem>
     </MudGrid>
-
     <MudDivider Class="mt-3 mb-3" />
-
+    @if (RowGenerationType == RowGenerationType.System)
+    {
+        <MudPaper Class="pa-4">
+            <MudStack Spacing="2">
+                <MudStack Direction="Row" AlignItems="AlignItems.Start" Justify="Justify.FlexStart">
+                    <MudButton StartIcon="@(_expanded ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)"
+                               Color="Color.Primary"
+                               Variant="Variant.Text"
+                               OnClick="OnExpandCollapseClick" FullWidth="true">
+                        Configuration
+                    </MudButton>
+                </MudStack>
+                <MudDivider />
+                <MudCollapse Expanded="_expanded">
+                    <MudGrid Class="mb-3">
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.subtitle1" GutterBottom="true">Select Eurojackpot Numbers (1-50)</MudText>
+                            <MudGrid>
+                                @for (int row = 0; row < 5; row++)
+                                {
+                                    var rowNumber = row;
+                                    <MudItem xs="12">
+                                        <MudGrid>
+                                            @for (int col = 0; col < 10; col++)
+                                            {
+                                                var colNumber = col;
+                                                var number = rowNumber * 10 + colNumber + 1;
+                                                <MudItem xs="1">
+                                                    <MudAvatar Class="mr-4" Color="@(SelectedMainNumbers.Contains(number) ? Color.Primary : Color.Default)" Size="Size.Medium" @onclick="() => ToggleMainNumber(number)">
+                                                        @number
+                                                    </MudAvatar>
+                                                </MudItem>
+                                            }
+                                        </MudGrid>
+                                    </MudItem>
+                                }
+                            </MudGrid>
+                        </MudItem>
+                        <MudItem xs="12" Class="mt-4">
+                            <MudText Typo="Typo.subtitle1" GutterBottom="true">Select Star Numbers (1-12)</MudText>
+                            <MudGrid>
+                                @for (int i = 1; i <= 12; i++)
+                                {
+                                    var starNumber = i;
+                                    <MudItem xs="1">
+                                        <MudAvatar Class="ma-2 cursor-pointer"
+                                                   Color="@(SelectedStarNumbers.Contains(starNumber) ? Color.Secondary : Color.Default)"
+                                                   @onclick="() => ToggleStarNumber(starNumber)">
+                                            @starNumber
+                                        </MudAvatar>
+                                    </MudItem>
+                                }
+                            </MudGrid>
+                        </MudItem>
+                    </MudGrid>
+                    <MudText Typo="Typo.h6" GutterBottom="true">Total Combinations: @CombinationCount</MudText>
+                </MudCollapse>
+            </MudStack>
+        </MudPaper>
+    }
+    <MudStack Direction="Row" Spacing="2">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="GenerateCombinations" Disabled="!CanGenerate">
+            Generate Rows
+        </MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="ResetSelection">
+            Reset
+        </MudButton>
+    </MudStack>
     <MudTable Items="GeneratedCombinations" Class="mt-3">
         <HeaderContent>
-            <MudTh Class="mud-text-center mud-primary-bg">Set #</MudTh>
+            <MudTh Class="mud-text-center mud-primary-bg">Row #</MudTh>
             <MudTh Class="mud-text-center mud-primary-bg">Numbers</MudTh>
         </HeaderContent>
         <RowTemplate>
@@ -29,40 +95,13 @@
             <MudTd>
                 @foreach (var num in context.Value.Take(5))
                 {
-                    <MudAvatar Class="mr-4" Color="Color.Primary" Size="Size.Medium">@num</MudAvatar>
+                    <MudAvatar Class="mr-6" Color="Color.Primary" Size="Size.Medium">@num</MudAvatar>
                 }
                 @foreach (var euroNum in context.Value.Skip(5))
                 {
-                    <MudAvatar Class="mr-4" Color="Color.Secondary" Size="Size.Medium">@euroNum</MudAvatar>
+                    <MudAvatar Class="mr-6" Color="Color.Secondary" Size="Size.Medium">@euroNum</MudAvatar>
                 }
             </MudTd>
         </RowTemplate>
     </MudTable>
 </MudContainer>
-
-@code {
-    private int NumberOfSets { get; set; } = 1;
-    private Dictionary<int, List<int>> GeneratedCombinations { get; set; } = new();
-
-    private void GenerateCombinations()
-    {
-        GeneratedCombinations.Clear();
-        var random = new Random();
-
-        for (int i = 1; i <= NumberOfSets; i++)
-        {
-            // Generate 5 main numbers (1-50) and 2 Euro numbers (1-12)
-            var mainNumbers = Enumerable.Range(1, 50).OrderBy(x => random.Next()).Take(5).ToList();
-            var euroNumbers = Enumerable.Range(1, 12).OrderBy(x => random.Next()).Take(2).ToList();
-
-            GeneratedCombinations[i] = mainNumbers.Concat(euroNumbers).ToList();
-        }
-    }
-    private void ValidateNumber()
-    {
-        if (NumberOfSets < 0)
-            NumberOfSets = 0;
-        else if (NumberOfSets > 999)
-            NumberOfSets = 999;
-    }
-}
