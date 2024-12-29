@@ -70,18 +70,17 @@ namespace JackpotOracle.Pages
 
         private void GenerateCombinations()
         {
-            var newCombinations = new Dictionary<int, List<int>>();
+            GeneratedCombinations = CreateCombinations();
+        }
 
-            if (RowGenerationType == RowGenerationType.Random)
+        private Dictionary<int, List<int>> CreateCombinations()
+        {
+            return RowGenerationType switch
             {
-                newCombinations = GetRandomCombinations();
-            }
-            else if (RowGenerationType == RowGenerationType.System)
-            {
-                newCombinations = GenerateSystemCombinations();
-            }
-
-            GeneratedCombinations = newCombinations;
+                RowGenerationType.Random => GetRandomCombinations(),
+                RowGenerationType.System => GenerateSystemCombinations(),
+                _ => new Dictionary<int, List<int>>()
+            };
         }
 
         private Dictionary<int, List<int>> GenerateSystemCombinations()
