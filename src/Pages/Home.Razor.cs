@@ -6,6 +6,7 @@ namespace JackpotOracle.Pages
     {
         private RowGenerationType RowGenerationType { get; set; } = RowGenerationType.System;
         private int NumberOfSets { get; set; } = 10;
+        private bool GetAllCombinations = false;
         private HashSet<int> SelectedMainNumbers { get; set; } = new();
         private HashSet<int> SelectedStarNumbers { get; set; } = new();
         private Dictionary<int, List<int>> GeneratedCombinations { get; set; } = new();
@@ -40,8 +41,8 @@ namespace JackpotOracle.Pages
         {
             if (NumberOfSets < 0)
                 NumberOfSets = 0;
-            else if (NumberOfSets > 999)
-                NumberOfSets = 999;
+            else if (NumberOfSets > 9999)
+                NumberOfSets = 9999;
         }
 
         private int CalculateCombinations()
@@ -90,6 +91,7 @@ namespace JackpotOracle.Pages
 
             var mainCombinations = GetCombinations(SelectedMainNumbers.ToList(), 5);
             var starCombinations = GetCombinations(SelectedStarNumbers.ToList(), 2);
+            var numberOfRows = GetAllCombinations ? CombinationCount : NumberOfSets;
 
             foreach (var mainCombo in mainCombinations)
             {
@@ -104,7 +106,7 @@ namespace JackpotOracle.Pages
                         newCombinations[setNo++] = fullCombo;
                     }
 
-                    if (newCombinations.Count >= NumberOfSets)
+                    if (newCombinations.Count >= numberOfRows)
                     {
                         return newCombinations;
                     }
@@ -118,7 +120,6 @@ namespace JackpotOracle.Pages
         {
             var newCombinations = new Dictionary<int, List<int>>();
             var random = new Random();
-
             for (int setNumber = 1; setNumber <= NumberOfSets; setNumber++)
             {
                 var randomMainNumbers = Enumerable.Range(1, 50).OrderBy(_ => random.Next()).Take(5).OrderBy(x => x).ToList();
@@ -155,6 +156,7 @@ namespace JackpotOracle.Pages
             SelectedStarNumbers.Clear();
             GeneratedCombinations.Clear();
             NumberOfSets = 10;
+            GetAllCombinations = false;
         }
     }
 }

@@ -6,14 +6,25 @@
     <MudText Typo="Typo.h4" GutterBottom="true">JackpotOracle Dashboard</MudText>
     <MudDivider Class="mb-3" />
     <MudGrid>
-        <MudItem xs="12" sm="6">
+        <MudItem xs="12" sm="4">
             <MudSelect Label="Type of Row Generation" @bind-Value="RowGenerationType" Variant="Variant.Outlined" FullWidth="true">
                 <MudSelectItem Value="@RowGenerationType.System">System</MudSelectItem>
                 <MudSelectItem Value="@RowGenerationType.Random">Random</MudSelectItem>
             </MudSelect>
         </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudTextField Label="Number of Rows" @bind-Value="NumberOfSets" Variant="Variant.Outlined" InputType="InputType.Number" Adornment="Adornment.Start" AdornmentText="Rows" FullWidth="true" Min="0" Max="999" Immediate="true" OnBlur="ValidateNumber" />
+        <MudItem xs="12" sm="8">
+            <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="3">
+                @if (RowGenerationType == RowGenerationType.System)
+                {
+                    <MudCheckBox @bind-Value="GetAllCombinations" T="bool" Label="Get All Combinations" />
+                    <MudTextField Label="Number of Rows" @bind-Value="NumberOfSets" Variant="Variant.Outlined" InputType="InputType.Number" Adornment="Adornment.Start"
+                                  AdornmentText="Rows" Min="0" Max="9999" Immediate="true" OnBlur="ValidateNumber" Disabled="@(GetAllCombinations)" />
+                }
+                else
+                {
+                    <MudTextField Label="Number of Rows" @bind-Value="NumberOfSets" Variant="Variant.Outlined" InputType="InputType.Number" Adornment="Adornment.Start" AdornmentText="Rows" FullWidth="true" Min="0" Max="9999" Immediate="true" OnBlur="ValidateNumber" />
+                }
+            </MudStack>
         </MudItem>
     </MudGrid>
     <MudDivider Class="mt-3 mb-3" />
