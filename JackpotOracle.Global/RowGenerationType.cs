@@ -1,8 +1,8 @@
-﻿namespace JackpotOracle.Global
+﻿namespace JackpotOracle.Global;
+
+public enum RowGenerationType
 {
-    public enum RowGenerationType
-    {
-        System,
-        Random
-    }
+    System,
+    Random,
+    Custom
 }
