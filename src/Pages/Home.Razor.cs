@@ -138,13 +138,12 @@ public partial class Home
     private Dictionary<int, List<int>> GenerateMaximumCoverageCombinations()
     {
         var newCombinations = new Dictionary<int, List<int>>();
-
-        var allMainNumbers = SelectedMainNumbers.ToList();
-        var allStarNumbers = SelectedStarNumbers.ToList();
+        var mainNumberUsage = Enumerable.Range(1, 50).ToDictionary(x => x, x => 0);
+        var starNumberUsage = Enumerable.Range(1, 12).ToDictionary(x => x, x => 0);
+        var allMainNumbers = SelectedMainNumbers.Any() ? SelectedMainNumbers.ToList() : Enumerable.Range(1, 50).ToList();
+        var allStarNumbers = SelectedStarNumbers.Any() ? SelectedStarNumbers.ToList() : Enumerable.Range(1, 12).ToList();
 
         var random = new Random();
-        var usedMainNumbers = new List<int>();
-        var usedStarNumbers = new List<int>();
         var numberOfRows = GetAllCombinations ? CombinationCount : NumberOfSets;
 
         for (int setNumber = 1; setNumber <= numberOfRows; setNumber++)
@@ -152,40 +151,36 @@ public partial class Home
             var mainNumbersForRow = new List<int>();
             var starNumbersForRow = new List<int>();
 
-            if (usedMainNumbers.Count < allMainNumbers.Count)
-            {
-                var unusedMainNumbers = allMainNumbers.Where(x => !usedMainNumbers.Contains(x)).ToList();
-                var selectedMain = unusedMainNumbers[random.Next(unusedMainNumbers.Count)];
-                mainNumbersForRow.Add(selectedMain);
-                usedMainNumbers.Add(selectedMain);
-            }
-
-            if (usedStarNumbers.Count < allStarNumbers.Count)
-            {
-                var unusedStarNumbers = allStarNumbers.Where(x => !usedStarNumbers.Contains(x)).ToList();
-                var selectedStar = unusedStarNumbers[random.Next(unusedStarNumbers.Count)];
-                starNumbersForRow.Add(selectedStar);
-                usedStarNumbers.Add(selectedStar);
-            }
-
             while (mainNumbersForRow.Count < 5)
             {
-                var randomMainNumber = allMainNumbers[random.Next(allMainNumbers.Count)];
-                if (!mainNumbersForRow.Contains(randomMainNumber))
-                    mainNumbersForRow.Add(randomMainNumber);
+                var leastUsedMainNumbers = allMainNumbers
+                    .Where(num => !mainNumbersForRow.Contains(num))
+                    .OrderBy(num => mainNumberUsage[num])
+                    .ThenBy(_ => random.Next())
+                    .Take(5 - mainNumbersForRow.Count);
+
+                mainNumbersForRow.AddRange(leastUsedMainNumbers);
             }
 
             while (starNumbersForRow.Count < 2)
             {
-                var randomStarNumber = allStarNumbers[random.Next(allStarNumbers.Count)];
-                if (!starNumbersForRow.Contains(randomStarNumber))
-                    starNumbersForRow.Add(randomStarNumber);
+                var leastUsedStarNumbers = allStarNumbers
+                    .Where(num => !starNumbersForRow.Contains(num))
+                    .OrderBy(num => starNumberUsage[num])
+                    .ThenBy(_ => random.Next())
+                    .Take(2 - starNumbersForRow.Count);
+
+                starNumbersForRow.AddRange(leastUsedStarNumbers);
             }
+
+            foreach (var num in mainNumbersForRow) mainNumberUsage[num]++;
+            foreach (var num in starNumbersForRow) starNumberUsage[num]++;
+
             var sortedMainCombo = mainNumbersForRow.OrderBy(x => x).ToList();
             var sortedStarCombo = starNumbersForRow.OrderBy(x => x).ToList();
             var fullCombo = sortedMainCombo.Concat(sortedStarCombo).ToList();
 
-            newCombinations[setNumber] = fullCombo.ToList();
+            newCombinations[setNumber] = fullCombo;
         }
 
         return newCombinations;
