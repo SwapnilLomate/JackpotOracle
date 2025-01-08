@@ -53,35 +53,32 @@
                     <MudGrid Class="mb-3">
                         <MudItem xs="12">
                             <MudText Typo="Typo.subtitle1" GutterBottom="true">Select Eurojackpot Numbers (1-50)</MudText>
-                            <MudGrid>
+                            <MudGrid Spacing="1" AlignItems="AlignItems.Center" Justify="Justify.Center">
                                 @for (int row = 0; row < 5; row++)
                                 {
                                     var rowNumber = row;
-                                    <MudItem xs="12">
-                                        <MudGrid>
-                                            @for (int col = 0; col < 10; col++)
-                                            {
-                                                var colNumber = col;
-                                                var number = rowNumber * 10 + colNumber + 1;
-                                                <MudItem xs="1">
-                                                    <MudAvatar Class="mr-4" Color="@(SelectedMainNumbers.Contains(number) ? Color.Primary : Color.Default)" Size="Size.Medium" @onclick="() => ToggleMainNumber(number)">
-                                                        @number
-                                                    </MudAvatar>
-                                                </MudItem>
-                                            }
-                                        </MudGrid>
-                                    </MudItem>
+
+                                    @for (int col = 0; col < 10; col++)
+                                    {
+                                        var colNumber = col;
+                                        var number = rowNumber * 10 + colNumber + 1;
+                                        <MudItem xs="1">
+                                            <MudAvatar Class="mb-2 cursor-pointer" Color="@(SelectedMainNumbers.Contains(number) ? Color.Primary : Color.Default)" Size="Size.Medium" @onclick="() => ToggleMainNumber(number)">
+                                                @number
+                                            </MudAvatar>
+                                        </MudItem>
+                                    }
                                 }
                             </MudGrid>
                         </MudItem>
                         <MudItem xs="12" Class="mt-4">
                             <MudText Typo="Typo.subtitle1" GutterBottom="true">Select Star Numbers (1-12)</MudText>
-                            <MudGrid>
+                            <MudGrid Spacing="1" AlignItems="AlignItems.Center" Justify="Justify.Center">
                                 @for (int i = 1; i <= 12; i++)
                                 {
                                     var starNumber = i;
                                     <MudItem xs="1">
-                                        <MudAvatar Class="ma-2 cursor-pointer"
+                                        <MudAvatar Class="cursor-pointer"
                                                    Color="@(SelectedStarNumbers.Contains(starNumber) ? Color.Secondary : Color.Default)"
                                                    @onclick="() => ToggleStarNumber(starNumber)">
                                             @starNumber
